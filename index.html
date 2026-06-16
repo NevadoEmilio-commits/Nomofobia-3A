@@ -1,1 +1,237 @@
-<!doctype html><html lang='es'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Desconectarse para reconectar</title><link rel='stylesheet' href='styles.css'></head><body><div class='hero'><h1>📱Desconectarse para reconectar</h1><h2>Análisis social de la nomofobia en los escolares</h2><p>Autores: Emilio Nevado · Brandon Morales · Helen Olayunca · Isaac Chulluncuy</p><p><b>3ro A de Secundaria</b></p></div><div class='card'><h2>¿Qué tan conectado estás?</h2><div id='qs'></div><button onclick='calc()'>Ver resultado</button><div id='res'></div></div><script src='script.js'></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Nomofobia - 3° A "El Bosque"</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #3182ce;
+            --background: #f7fafc;
+            --text: #2d3748;
+            --success: #38a169;
+            --warning: #dd6b20;
+            --danger: #e53e3e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #718096;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar-container {
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background-color: var(--secondary);
+            height: 100%;
+            width: 25%;
+            transition: width 0.3s ease;
+        }
+
+        .question-card h2 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            border: 2px solid var(--secondary);
+            background-color: transparent;
+            color: var(--secondary);
+            padding: 12px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 120px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-yes:hover {
+            background-color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        .btn-no:hover {
+            background-color: var(--success);
+            border-color: var(--success);
+        }
+
+        .result-card {
+            display: none;
+        }
+
+        .result-badge {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .badge-low { background-color: #c6f6d5; color: #22543d; }
+        .badge-mid { background-color: #feebc8; color: #744210; }
+        .badge-high { background-color: #fed7d7; color: #742a2a; }
+
+        .result-text {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #4a5568;
+            margin-bottom: 25px;
+        }
+
+        .btn-restart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-restart:hover {
+            background-color: #102a43;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <div class="header">
+            <h1>¿Qué tan esclavo eres de tu celular?</h1>
+            <p>Proyecto Eureka 2026 - I.E.E. 1182 "El Bosque"</p>
+        </div>
+
+        <div id="quiz-section">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+            <div class="question-card">
+                <h2 id="question-text">Cargando pregunta...</h2>
+                <div class="btn-container">
+                    <button class="btn btn-yes" onclick="answer(true)">SÍ</button>
+                    <button class="btn btn-no" onclick="answer(false)">NO</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="result-section" class="result-card">
+            <div id="result-badge" class="result-badge">Resultado</div>
+            <p id="result-text" class="result-text">Mensaje de diagnóstico personalizado.</p>
+            <button class="btn-restart" onclick="restartQuiz()">Volver a realizar el Test</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            "¿Es el celular lo primero que miras al despertar y lo último antes de dormir?",
+            "Si sales a la calle y olvidas el celular, ¿sientes ansiedad o la necesidad de regresar a buscarlo?",
+            "¿Tus padres, amigos o profesores te han llamado la atención por estar mirando la pantalla mientras te hablaban?",
+            "¿Has dejado de hacer tus tareas o has perdido horas de sueño por quedarte conectado a las pantallas?"
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function showQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                document.getElementById("question-text").innerText = questions[currentQuestionIndex];
+                document.getElementById("progress").style.width = ((currentQuestionIndex + 1) / questions.length) * 100 + "%";
+            } else {
+                showResults();
+            }
+        }
+
+        function answer(isYes) {
+            if (isYes) score++;
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        function showResults() {
+            document.getElementById("quiz-section").style.display = "none";
+            const resultSection = document.getElementById("result-section");
+            const badge = document.getElementById("result-badge");
+            const text = document.getElementById("result-text");
+            resultSection.style.display = "block";
+
+            if (score <= 1) {
+                badge.className = "result-badge badge-low";
+                badge.innerText = "Desconexión Saludable 🟢";
+                text.innerText = "¡Felicitaciones! Sabes controlar tus tiempos en el mundo virtual. El celular es una herramienta para ti, no una necesidad. Sigue cuidando tu convivencia familiar en casa.";
+            } else if (score <= 3) {
+                badge.className = "result-badge badge-mid";
+                badge.innerText = "Alerta de Dependencia 🟡";
+                text.innerText = "¡Cuidado! Estás empezando a dejar que las pantallas invadan tus horas de descanso y tus espacios de conversación con los demás. Es un buen momento para empezar a poner límites.";
+            } else {
+                badge.className = "result-badge badge-high";
+                badge.innerText = "Nomofobia Crítica 🔴";
+                text.innerText = "El teléfono celular está tomando el control de tus emociones y afectando tus relaciones en el mundo real. Te invitamos a conocer nuestras propuestas de 'Hogares libres de pantallas' aquí en nuestro stand de 3° A.";
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById("quiz-section").style.display = "block";
+            document.getElementById("result-section").style.display = "none";
+            showQuestion();
+        }
+
+        // Iniciar el test
+        showQuestion();
+    </script>
+</body>
+</html>
