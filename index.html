@@ -44,10 +44,11 @@
         }
 
         .header p {
-            font-size: 14px;
+            font-size: 13px;
             color: #718096;
             margin-top: 0;
             margin-bottom: 25px;
+            line-height: 1.4;
         }
 
         .progress-bar-container {
@@ -61,7 +62,7 @@
         .progress-bar {
             background-color: var(--secondary);
             height: 100%;
-            width: 25%;
+            width: 16.66%;
             transition: width 0.3s ease;
         }
 
@@ -151,7 +152,8 @@
     <div class="quiz-container">
         <div class="header">
             <h1>¿Qué tan esclavo eres de tu celular?</h1>
-            <p>Proyecto Eureka 2026 - I.E.E. 1182 "El Bosque"</p>
+            <p>Proyecto Eureka 2026 - I.E.E. 1182 "El Bosque"<br>
+            <strong>Autores:</strong> Nevado, Morales, Olayunca y Chulluncuy (3° A)</p>
         </div>
 
         <div id="quiz-section">
@@ -178,8 +180,10 @@
         const questions = [
             "¿Es el celular lo primero que miras al despertar y lo último antes de dormir?",
             "Si sales a la calle y olvidas el celular, ¿sientes ansiedad o la necesidad de regresar a buscarlo?",
-            "¿Tus padres, amigos o profesores te han llamado la atención por estar mirando la pantalla mientras te hablaban?",
-            "¿Has dejado de hacer tus tareas o has perdido horas de sueño por quedarte conectado a las pantallas?"
+            "¿Utilizas el celular mientras caminas por la calle, los pasillos o mientras realizas otras actividades que requieren tu atención?",
+            "¿Tus familiares, amigos o colegas te han llamado la atención por estar mirando la pantalla mientras te hablaban?",
+            "¿Sueles revisar las notificaciones de tu teléfono inmediatamente apenas suena o vibra, incluso si estás en una reunión, clase o almuerzo?",
+            "¿Has perdido horas de sueño o has postergado tus responsabilidades (deberes, trabajo o tareas) por quedarte conectado a las pantallas?"
         ];
 
         let currentQuestionIndex = 0;
@@ -207,18 +211,18 @@
             const text = document.getElementById("result-text");
             resultSection.style.display = "block";
 
-            if (score <= 1) {
+            if (score <= 2) {
                 badge.className = "result-badge badge-low";
                 badge.innerText = "Desconexión Saludable 🟢";
-                text.innerText = "¡Felicitaciones! Sabes controlar tus tiempos en el mundo virtual. El celular es una herramienta para ti, no una necesidad. Sigue cuidando tu convivencia familiar en casa.";
-            } else if (score <= 3) {
+                text.innerText = "¡Felicitaciones! 🥳 Mantienes una relación muy equilibrada con la tecnología. El celular es una herramienta útil en tu día a día, pero no domina tus emociones ni interfiere con tus interacciones en el mundo real. ¡Sigue cuidando tus espacios presenciales y el diálogo cara a cara! 🌿💬";
+            } else if (score <= 4) {
                 badge.className = "result-badge badge-mid";
                 badge.innerText = "Alerta de Dependencia 🟡";
-                text.innerText = "¡Cuidado! Estás empezando a dejar que las pantallas invadan tus horas de descanso y tus espacios de conversación con los demás. Es un buen momento para empezar a poner límites.";
+                text.innerText = "¡Atención! 🤨 Las pantallas están comenzando a invadir de forma sutil tus horas de descanso, tus momentos de concentración y tus conversaciones familiares o laborales. Estás a tiempo de tomar el control: ¡es un excelente momento para establecer límites digitales diarios y apagar las notificaciones! ⏱️❌";
             } else {
                 badge.className = "result-badge badge-high";
                 badge.innerText = "Nomofobia Crítica 🔴";
-                text.innerText = "El teléfono celular está tomando el control de tus emociones y afectando tus relaciones en el mundo real. Te invitamos a conocer nuestras propuestas de 'Hogares libres de pantallas' aquí en nuestro stand de 3° A.";
+                text.innerText = "¡Alerta Roja! 🚨 El teléfono celular está tomando un control excesivo sobre tus rutinas cotidianas, tus responsabilidades y tu bienestar emocional. Pasas más tiempo conectado a la red que disfrutando de tu entorno. Te invitamos a reflexionar sobre tus hábitos y a conocer nuestras propuestas de 'Hogares Libres de Pantallas' aquí en nuestro stand. ¡Desconéctate para reconectar! 🤝📵";
             }
         }
 
