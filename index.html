@@ -16,7 +16,29 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        <!-- PANTALLA DE BIENVENIDA DIVERTIDA -->
+<div id="pantalla-bienvenida" style="text-align: center; font-family: sans-serif; padding: 40px; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); margin-top: 50px;">
+    <h1 style="color: #2c3e50; font-size: 28px;">📱 TEST INTERACTIVO: NOMOFOBIA-3A</h1>
+    <h3 style="color: #27ae60; font-size: 18px;">Campaña "Desconectarse para Reconectar" — I.E.E. 1182 "El Bosque"</h3>
+    <p style="color: #555; font-size: 16px; line-height: 1.6; margin: 20px 0;">
+        ¿Crees que controlas tu celular... o tu celular te controla a ti? 🧐 <br><br>
+        Responde estas breves preguntas anónimas y descubre en tiempo real si sufres de Nomofobia (adicción al móvil) o si eres un maestro de la desconexión. ¡Al final recibirás tu diagnóstico y consejos clave!
+    </p>
+    <button onclick="iniciarTest()" style="background-color: #27ae60; color: white; border: none; padding: 15px 30px; font-size: 18px; font-weight: bold; border-radius: 25px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        ▶️ ¡INICIAR TEST!
+    </button>
+</div>
+
+<script>
+function iniciarTest() {
+    // Esto oculta la bienvenida divertida
+    document.getElementById('pantalla-bienvenida').style.display = 'none';
+    
+    // AQUÍ EMILIO DEBE PONER EL ID DEL CONTENEDOR DE SUS PREGUNTAS PARA QUE SE MUESTREN
+    // Por ejemplo: document.getElementById('contenedor-preguntas').style.display = 'block';
+}
+</script>
+<!-- FIN DE LA PANTALLA DE BIENVENIDA -->    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--background);
             color: var(--text);
             margin: 0;
