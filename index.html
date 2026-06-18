@@ -15,9 +15,13 @@
             --danger: #e53e3e;
         }
 
-       <body>
-        <!-- PANTALLA DE BIENVENIDA DIVERTIDA -->
-<div id="pantalla-bienvenida" style="text-align: center; font-family: sans-serif; padding: 40px; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); margin-top: 50px;">
+       }
+</style>
+</head>
+<body>
+
+<!-- PANTALLA DE BIENVENIDA DIVERTIDA -->
+<div id="pantalla-bienvenida" style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); margin-top: 50px; position: relative; z-index: 9999;">
     <h1 style="color: #2c3e50; font-size: 28px;">📱 TEST INTERACTIVO: NOMOFOBIA-3A</h1>
     <h3 style="color: #27ae60; font-size: 18px;">Campaña "Desconectarse para Reconectar" — I.E.E. 1182 "El Bosque"</h3>
     <p style="color: #555; font-size: 16px; line-height: 1.6; margin: 20px 0;">
@@ -34,23 +38,16 @@ function iniciarTest() {
     // Esto oculta la bienvenida divertida
     document.getElementById('pantalla-bienvenida').style.display = 'none';
     
-    // AQUÍ EMILIO DEBE PONER EL ID DEL CONTENEDOR DE SUS PREGUNTAS PARA QUE SE MUESTREN
-    // Por ejemplo: document.getElementById('contenedor-preguntas').style.display = 'block';
+    // Esto hace que aparezca el test de Emilio de forma automática
+    document.querySelector('.quiz-container').style.display = 'block';
 }
 </script>
-<!-- FIN DE LA PANTALLA DE BIENVENIDA -->    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+<!-- FIN DE LA PANTALLA DE BIENVENIDA -->
+            
 
         .quiz-container {
             background-color: #ffffff;
+            display: none;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             padding: 30px;
